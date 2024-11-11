@@ -35,7 +35,7 @@ spec:
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           command: ["/exporter"]  # Overrides ENTRYPOINT
-          args: ["--endpoint=0.0.0.0:8080", "--path=/metrics", "--hosts={{ $hosts }}"]  # Overrides CMD
+          args: ["--endpoint=0.0.0.0:8080", "--path=/metrics", "--domain=worqcompany.com"]  # Overrides CMD
           ports:
             - name: http
               containerPort: {{ .Values.service.port }}
