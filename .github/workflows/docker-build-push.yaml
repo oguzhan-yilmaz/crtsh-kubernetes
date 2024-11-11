@@ -5,7 +5,7 @@ on:
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: "dazwilkin--crtsh-exporter"
+  IMAGE_NAME: "oguzhan-yilmaz/dazwilkin--crtsh-exporter"
 
 jobs:
   build-and-push-docker-image:
