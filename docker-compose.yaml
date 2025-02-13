@@ -1,5 +1,5 @@
 networks:
-  turbot:
+  crtsh-exporter:
     driver: bridge
 
 services:
@@ -10,4 +10,4 @@ services:
     ports:
       - "8080:8080"
     networks:
-      - turbot
+      - crtsh-exporter
