@@ -3,7 +3,7 @@ networks:
     driver: bridge
 
 services:
-  steampipe:
+  crtsh-exporter:
     image: "ghcr.io/dazwilkin/crtsh-exporter:latest"
     environment:
       TEST: "TEST"
