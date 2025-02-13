@@ -1,0 +1,39 @@
+{{- if (.Values.prometheusAlerts).enabled }}
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: crtsh-alerting-rules
+  labels:
+    release: kube-prometheus-stack
+    {{- include "crtsh-kubernetes.selectorLabels" . | nindent 4 }}
+spec:
+  groups:
+  - name: CertificateExpiryAlerts
+    rules:
+    - alert: CertificateExpiringCritical
+      expr: (crtsh_exporter_certificate_expiry - vector(time())) < ({{ .Values.prometheusAlerts.criticalDays }} * 24 * 3600)
+      for: {{ .Values.prometheusAlerts.interval }}
+      labels:
+        severity: critical
+      annotations:
+        summary: "SSL Certificate critically close to expiry"
+        description: "Certificate for {{`{{`}} $labels.name {{`}}`}} will expire in less than {{ .Values.prometheusAlerts.criticalDays }} days (expires at {{`{{`}} $value | humanizeTimestamp {{`}}`}})"
+
+    - alert: CertificateExpiringWarning
+      expr: (crtsh_exporter_certificate_expiry - vector(time())) < ({{ .Values.prometheusAlerts.warningDays }} * 24 * 3600)
+      for: {{ .Values.prometheusAlerts.interval }}
+      labels:
+        severity: warning
+      annotations:
+        summary: "SSL Certificate expiring soon"
+        description: "Certificate for {{`{{`}} $labels.name {{`}}`}} will expire in less than {{ .Values.prometheusAlerts.warningDays }} days (expires at {{`{{`}} $value | humanizeTimestamp {{`}}`}})"
+
+    - alert: CertificateExpiringInfo
+      expr: (crtsh_exporter_certificate_expiry - vector(time())) < ({{ .Values.prometheusAlerts.infoDays }} * 24 * 3600)
+      for: {{ .Values.prometheusAlerts.interval }}
+      labels:
+        severity: info
+      annotations:
+        summary: "SSL Certificate expiration approaching"
+        description: "Certificate for {{`{{`}} $labels.name {{`}}`}} will expire in less than {{ .Values.prometheusAlerts.infoDays }} days (expires at {{`{{`}} $value | humanizeTimestamp {{`}}`}})"
+{{- end }}
