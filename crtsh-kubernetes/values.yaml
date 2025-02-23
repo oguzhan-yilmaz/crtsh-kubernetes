@@ -3,7 +3,7 @@ serviceMonitorLabels:
 
 prometheus:
   scrapeInterval: 300s
-  # scrapeInterval: 30s
+  scrapeTimeout: 100s
   
 hosts:
   - hepapi.com

@@ -11,4 +11,5 @@ spec:
       {{- include "crtsh-kubernetes.selectorLabels" . | nindent 6 }}
   endpoints:
     - port: http
-      interval: {{ .Values.prometheus.scrapeInterval | default "30s" }}
+      interval: {{ .Values.prometheus.scrapeInterval | default "300s" }}
+      scrapeTimeout: "{{ .Values.prometheus.scrapeTimeout | default "90s" }}"
