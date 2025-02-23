@@ -16,30 +16,31 @@ spec:
 
     chart: crtsh-kubernetes
     helm:
-      releaseName: crtsh-kubernetes
+      releaseName: crtsh
 
+      # Values file as block file. This takes precedence over values
+      # -----------------------------------------------
+      valuesObject:
 
-      # Uncomment below to enable powerpipe-mod-kubernetes-vpa-right-sizing support
-      # valuesFiles:
-      #   - powerpipe-mod-kubernetes-vpa-right-sizing.values.yaml
+        serviceMonitorLabels:
+          release: kube-prometheus-stack
 
+        hosts:
+          - hepapi.com
 
-      # # Values file as block file. This takes precedence over values
-      # valuesObject:
-      #   ingress:
-      #     enabled: true
-      #     path: /
-      #     hosts:
-      #       - mydomain.example.com
-      #     annotations:
-      #       kubernetes.io/ingress.class: nginx
-      #       kubernetes.io/tls-acme: "true"
-      #     labels: {}
-      #     tls:
-      #       - secretName: mydomain-tls
-      #         hosts:
-      #           - mydomain.example.com
+        prometheusRules:
+          enabled: true
+          expiringInfo:
+            days: 90
+            severity: info
+          expiringWarning:
+            days: 60
+            severity: warning
+          expiringCritical:
+            days: 30
+            severity: critical
 
+      # -----------------------------------------------
 
   # Destination cluster and namespace to deploy the application
   destination:
