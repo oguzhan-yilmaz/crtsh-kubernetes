@@ -2,7 +2,6 @@ serviceMonitorLabels:
   release: kube-prometheus-stack
 
 prometheus:
-  installedNamespace: monitoring
   scrapeInterval: 300s
   # scrapeInterval: 30s
   
@@ -11,10 +10,16 @@ hosts:
 
 prometheusRules:
   enabled: true
-  infoDays: 400
-  warningDays: 120
-  criticalDays: 90
-  alert_for: 10m
+  expiringInfo:
+    days: 90
+    severity: info
+  expiringWarning:
+    days: 60
+    severity: warning
+  expiringCritical:
+    days: 30
+    severity: critical
+
 
 # This will set the replicaset count more information can be found here: https://kubernetes.io/docs/concepts/workloads/controllers/replicaset/
 replicaCount: 1

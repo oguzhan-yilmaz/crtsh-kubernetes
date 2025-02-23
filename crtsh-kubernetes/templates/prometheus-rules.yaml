@@ -12,28 +12,28 @@ spec:
     rules:
     - alert: CertificateExpiringCritical
       expr: (crtsh_exporter_certificate_expiry - time()) < ({{ .Values.prometheusRules.criticalDays }} * 24 * 3600)
-      for: {{ .Values.prometheusRules.alert_for }}
+      for: 10m
       labels:
-        severity: critical
+        severity: {{ .Values.prometheusRules.expiringCritical.severity }}
       annotations:
         summary: "SSL Certificate critically close to expiry"
-        description: "Certificate for {{`{{`}} $labels.name {{`}}`}} will expire in less than {{ .Values.prometheusRules.criticalDays }} days (expires at {{`{{`}} $value | humanizeTimestamp {{`}}`}})"
+        description: "Certificate for {{`{{`}} $labels.name {{`}}`}} will expire in less than {{ .Values.prometheusRules.expiringCritical.days }} days (expires at {{`{{`}} $value | humanizeTimestamp {{`}}`}})"
 
     - alert: CertificateExpiringWarning
       expr: (crtsh_exporter_certificate_expiry - time()) < ({{ .Values.prometheusRules.warningDays }} * 24 * 3600)
-      for: {{ .Values.prometheusRules.alert_for }}
+      for: 10m
       labels:
-        severity: warning
+        severity: {{ .Values.prometheusRules.expiringWarning.severity }}
       annotations:
         summary: "SSL Certificate expiring soon"
-        description: "Certificate for {{`{{`}} $labels.name {{`}}`}} will expire in less than {{ .Values.prometheusRules.warningDays }} days (expires at {{`{{`}} $value | humanizeTimestamp {{`}}`}})"
+        description: "Certificate for {{`{{`}} $labels.name {{`}}`}} will expire in less than {{ .Values.prometheusRules.expiringWarning.days }} days (expires at {{`{{`}} $value | humanizeTimestamp {{`}}`}})"
 
     - alert: CertificateExpiringInfo
-      expr: (crtsh_exporter_certificate_expiry - time()) < ({{ .Values.prometheusRules.infoDays }} * 24 * 3600)
-      for: {{ .Values.prometheusRules.alert_for }}
+      expr: (crtsh_exporter_certificate_expiry - time()) < ({{ .Values.prometheusRules.expiringInfo.days }} * 24 * 3600)
+      for: 10m
       labels:
-        severity: info
+        severity: {{ .Values.prometheusRules.expiringInfo.severity }}
       annotations:
         summary: "SSL Certificate expiration approaching"
-        description: "Certificate for {{`{{`}} $labels.name {{`}}`}} will expire in less than {{ .Values.prometheusRules.infoDays }} days (expires at {{`{{`}} $value | humanizeTimestamp {{`}}`}})"
+        description: "Certificate for {{`{{`}} $labels.name {{`}}`}} will expire in less than {{ .Values.prometheusRules.expiringInfo.days }} days (expires at {{`{{`}} $value | humanizeTimestamp {{`}}`}})"
 {{- end }}
