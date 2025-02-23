@@ -1,13 +1,20 @@
+serviceMonitorLabels:
+  release: kube-prometheus-stack
+
+prometheus:
+  installedNamespace: monitoring
+  scrapeInterval: 300s
+  # scrapeInterval: 30s
+  
 hosts:
-  - worqcompany.com
+  - hepapi.com
 
-
-prometheusAlerts:
+prometheusRules:
   enabled: true
   infoDays: 400
   warningDays: 120
   criticalDays: 90
-  interval: 1m
+  alert_for: 10m
 
 # This will set the replicaset count more information can be found here: https://kubernetes.io/docs/concepts/workloads/controllers/replicaset/
 replicaCount: 1
@@ -53,13 +60,13 @@ service:
   # This sets the ports more information can be found here: https://kubernetes.io/docs/concepts/services-networking/service/#field-spec-ports
   port: 9090
 
-resources:
-  limits:
-    cpu: 100m
-    memory: 128Mi
-  requests:
-    cpu: 100m
-    memory: 128Mi
+# resources:
+#   limits:
+#     cpu: 100m
+#     memory: 128Mi
+#   requests:
+#     cpu: 100m
+#     memory: 128Mi
 
 # This is to setup the liveness and readiness probes more information can be found here: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/
 livenessProbe:
