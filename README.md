@@ -69,3 +69,7 @@ You can use the `argocd-application.yaml` manifest in the Github repo: <https://
 ```bash
 kubectl apply -f https://raw.githubusercontent.com/oguzhan-yilmaz/crtsh-kubernetes/refs/heads/main/argocd-application.yaml
 ```
+
+## Credits
+- [github.com/DazWilkin](https://github.com/DazWilkin) awesome humanbeing 
+    - [DazWilkin/crtsh-exporter](https://github.com/DazWilkin/crtsh-exporter/) prometheus exporter written in go
