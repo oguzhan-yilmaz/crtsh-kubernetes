@@ -96,9 +96,8 @@ jobs:
             # update the values.yaml on your own accord
 
             helm upgrade --install crtsh \
-              -n crtsh \
+              -n crtsh --create-namespace \
               -f values.yaml \
-              --create-namespace \
               crtsh-kubernetes/crtsh-kubernetes
             ```
             
@@ -110,19 +109,18 @@ jobs:
             # update the values.yaml on your own accord
 
             helm upgrade --install crtsh \
-              -n crtsh \
+              -n crtsh --create-namespace \
               -f values.yaml \
-              --create-namespace \
               --version ${{ steps.helm_package.outputs.package-version}} \
               crtsh-kubernetes/crtsh-kubernetes
             ```
 
             **ArgoCD Application (current version)**
 
-            First, download the `argocd-application-X.Y.Z.yaml` from assets.
+            First, download the `argocd-application-${{ steps.helm_package.outputs.package-version}}.yaml` from assets.
 
             ```bash
-            kubectl apply -f argocd-application-X.Y.Z.yaml
+            kubectl apply -f argocd-application-${{ steps.helm_package.outputs.package-version}}.yaml
             ```
 
       - name: print release upload output
