@@ -8,7 +8,7 @@ Deploy a Prometheus Exporter for [crt.sh](https://crt.sh/) — a [Certificate Tr
 Includes Prometheus Rules for alerting expiring SSL certificates via AlertManager.
 
 
-## Add the Helm Repository
+## 1. Add the Helm Repository
 
 ```bash
 helm repo add crtsh-kubernetes https://oguzhan-yilmaz.github.io/crtsh-kubernetes
@@ -16,7 +16,7 @@ helm repo add crtsh-kubernetes https://oguzhan-yilmaz.github.io/crtsh-kubernetes
 helm repo update crtsh-kubernetes
 ```
 
-## Update the helm values.yaml
+## 2. Update the helm values.yaml
 
 First, save the default values to a file.
 
@@ -24,7 +24,7 @@ First, save the default values to a file.
 helm show values crtsh-kubernetes/crtsh-kubernetes > crtsh-values.yaml
 ```
 
-### Get the ServiceMonitor label
+### 2.1 Get the ServiceMonitor label
 
 Prometheus has a configuration named `serviceMonitorSelector` and it's used to dynamically select `ServiceMonitor` objects to scrape.
 
@@ -43,7 +43,9 @@ serviceMonitorLabels:
   release: kube-prometheus-stack
 ```
 
-### Set domains for Certificate Expiry
+### 2.2 Set domains for Certificate Expiry
+
+crtsh exporter will scrape the crt.sh for the domains set in the `hosts` variable.
 
 ```yaml
 hosts:
@@ -51,21 +53,16 @@ hosts:
   - your-cool-domain.io
 ```
 
-## Helm Install
+## 3. Helm Install
 
 ```bash
-
-helm show values crtsh-kubernetes/crtsh-kubernetes > crtsh-values.yaml
-
-# update the crtsh-values.yaml on your own accord
-
 helm upgrade --install crtsh \
     -n crtsh --create-namespace \
     -f crtsh-values.yaml \
     crtsh-kubernetes/crtsh-kubernetes
 ```
 
-## ArgoCD Install
+## 4. ArgoCD Install
 
 You can use the `argocd-application.yaml` manifest in the Github repo: <https://github.com/oguzhan-yilmaz/crtsh-kubernetes/blob/main/argocd-application.yaml>
 
