@@ -11,7 +11,7 @@ spec:
   - name: CertificateExpiryAlerts
     rules:
     - alert: CertificateExpiringCritical
-      expr: (crtsh_exporter_certificate_expiry - time()) < ({{ .Values.prometheusRules.criticalDays }} * 24 * 3600)
+      expr: (crtsh_exporter_certificate_expiry - time()) < ({{ .Values.prometheusRules.expiringCritical.days }} * 24 * 3600)
       for: 10m
       labels:
         severity: {{ .Values.prometheusRules.expiringCritical.severity }}
@@ -20,7 +20,7 @@ spec:
         description: "Certificate for {{`{{`}} $labels.name {{`}}`}} will expire in less than {{ .Values.prometheusRules.expiringCritical.days }} days (expires at {{`{{`}} $value | humanizeTimestamp {{`}}`}})"
 
     - alert: CertificateExpiringWarning
-      expr: (crtsh_exporter_certificate_expiry - time()) < ({{ .Values.prometheusRules.warningDays }} * 24 * 3600)
+      expr: (crtsh_exporter_certificate_expiry - time()) < ({{ .Values.prometheusRules.expiringWarning.days }} * 24 * 3600)
       for: 10m
       labels:
         severity: {{ .Values.prometheusRules.expiringWarning.severity }}
