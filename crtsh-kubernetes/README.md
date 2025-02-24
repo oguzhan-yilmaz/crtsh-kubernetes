@@ -33,7 +33,7 @@ It's usually the Helm Release name: `release: <your-prom-release-name>`
 Each installation may differ, so use the below command to find out the correct label(s).
 
 ```bash
-kubectl get prometheus -n monitoring -o go-template='{{range $k, $v := (index .items 0).spec.serviceMonitorSelector.matchLabels}}{{$k}}: {{$v}}{{end}}'
+kubectl get prometheus -A -o go-template='{{range $k, $v := (index .items 0).spec.serviceMonitorSelector.matchLabels}}{{$k}}: {{$v}}{{end}}'
 ```
 
 Update the `.serviceMonitorLabels` in `values.yaml` accordingly.
