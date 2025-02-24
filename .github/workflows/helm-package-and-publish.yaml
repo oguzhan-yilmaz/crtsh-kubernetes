@@ -71,11 +71,6 @@ jobs:
           generate_release_notes: true
           fail_on_unmatched_files: true
           body: |
-            Github Repo: <https://github.com/oguzhan-yilmaz/crtsh-kubernetes>
-            Github Releases: <https://github.com/oguzhan-yilmaz/crtsh-kubernetes/releases>
-            Github Pages: <https://oguzhan-yilmaz.github.io/crtsh-kubernetes/>
-            Github Pages (Helm index): <https://oguzhan-yilmaz.github.io/crtsh-kubernetes/index.yaml>
-            
             **Helm Repo**
 
             ```bash
@@ -108,7 +103,7 @@ jobs:
             serviceMonitorLabels:
               release: kube-prometheus-stack
             ```
-            
+
             **Set domains for Certificate Expiry**
 
             crtsh exporter will scrape the crt.sh for the domains set in the `hosts` variable.
@@ -158,6 +153,14 @@ jobs:
             ```bash
             kubectl apply -f argocd-application-${{ steps.helm_package.outputs.package-version}}.yaml
             ```
+
+            **References**
+
+            - Github Repo: <https://github.com/oguzhan-yilmaz/crtsh-kubernetes>
+            - Github Releases: <https://github.com/oguzhan-yilmaz/crtsh-kubernetes/releases>
+            - Github Pages: <https://oguzhan-yilmaz.github.io/crtsh-kubernetes/>
+            - Github Pages (Helm index): <https://oguzhan-yilmaz.github.io/crtsh-kubernetes/index.yaml>
+            
 
       - name: print release upload output
         run: |
