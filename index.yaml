@@ -3,6 +3,16 @@ entries:
   crtsh-kubernetes:
   - apiVersion: v2
     appVersion: 1.16.0
+    created: "2025-02-24T21:22:59.252878057Z"
+    description: A Helm chart for Kubernetes
+    digest: 2958ace7e13aaa0dd9306118dc43029d5216c9f8f709ab96fc448c83f784ecd7
+    name: crtsh-kubernetes
+    type: application
+    urls:
+    - https://github.com/oguzhan-yilmaz/crtsh-kubernetes/releases/download/v0.5.4/crtsh-kubernetes-0.5.4.tgz
+    version: 0.5.4
+  - apiVersion: v2
+    appVersion: 1.16.0
     created: "2025-02-24T21:16:07.07305116Z"
     description: A Helm chart for Kubernetes
     digest: 47494a83e1e444923addd27fc49f2884a3e591ddadb7676d12c07d486c01e1ad
@@ -101,4 +111,4 @@ entries:
     urls:
     - https://github.com/oguzhan-yilmaz/crtsh-kubernetes/releases/download/v0.1.4/crtsh-kubernetes-0.1.4.tgz
     version: 0.1.4
-generated: "2025-02-24T21:16:07.07246357Z"
+generated: "2025-02-24T21:22:59.252191662Z"
