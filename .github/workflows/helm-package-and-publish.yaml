@@ -79,7 +79,7 @@ jobs:
             helm repo update crtsh-kubernetes
             ```
 
-            **Get the default Helm values.yaml**
+            **Get the default Helm crtsh-values.yaml**
 
             ```bash
             helm show values crtsh-kubernetes/crtsh-kubernetes > crtsh-values.yaml
@@ -97,7 +97,7 @@ jobs:
             kubectl get prometheus -A -o go-template='{{range $k, $v := (index .items 0).spec.serviceMonitorSelector.matchLabels}}{{$k}}: {{$v}}{{end}}'
             ```
 
-            Update the `.serviceMonitorLabels` in `values.yaml` accordingly.
+            Update the `.serviceMonitorLabels` in `crtsh-values.yaml` accordingly.
 
             ```yaml
             serviceMonitorLabels:
@@ -106,7 +106,7 @@ jobs:
 
             **Set domains for Certificate Expiry**
 
-            crtsh exporter will scrape the crt.sh for the domains set in the `hosts` variable.
+            crtsh exporter will scrape the crt.sh for the domains set in the `.hosts` variable.
 
             ```yaml
             hosts:
