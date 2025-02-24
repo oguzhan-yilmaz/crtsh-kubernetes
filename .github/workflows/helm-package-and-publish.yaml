@@ -80,39 +80,74 @@ jobs:
 
             ```bash
             helm repo add crtsh-kubernetes https://oguzhan-yilmaz.github.io/crtsh-kubernetes 
-            ```
 
-            ```bash
             helm repo update crtsh-kubernetes
             ```
-            
+
+            **Get the default Helm values.yaml**
+
+            ```bash
+            helm show values crtsh-kubernetes/crtsh-kubernetes > crtsh-values.yaml
+            ````
+
+            **Update the crtsh-values.yaml**
+            Prometheus has a configuration named `serviceMonitorSelector` and it's used to dynamically select `ServiceMonitor` objects to scrape.
+
+            It's usually the Helm Release name: `release: <your-prom-release-name>`
+
+            Each installation may differ, so use the below command to find out the correct label(s).
+
+            ```bash
+            kubectl get prometheus -A -o go-template='{{range $k, $v := (index .items 0).spec.serviceMonitorSelector.matchLabels}}{{$k}}: {{$v}}{{end}}'
+            ```
+
+
+            Update the `.serviceMonitorLabels` in `values.yaml` accordingly.
+
+            ```yaml
+            serviceMonitorLabels:
+              release: kube-prometheus-stack
+            ```
+            **Set domains for Certificate Expiry**
+
+            crtsh exporter will scrape the crt.sh for the domains set in the `hosts` variable.
+
+            ```yaml
+            hosts:
+              - your-domain.com
+              - your-cool-domain.io
+            ```
+
+
             **Helm Install (latest version)**
 
             ```bash
-            helm repo update crtsh-kubernetes
-
-            helm show values crtsh-kubernetes/crtsh-kubernetes > values.yaml
-
-            # update the values.yaml on your own accord
-
             helm upgrade --install crtsh \
               -n crtsh --create-namespace \
-              -f values.yaml \
+              -f crtsh-values.yaml \
               crtsh-kubernetes/crtsh-kubernetes
             ```
             
             **Helm Install (current version)**
 
             ```bash
-            helm show values crtsh-kubernetes/crtsh-kubernetes --version ${{ steps.helm_package.outputs.package-version}} > values.yaml
+            helm show values crtsh-kubernetes/crtsh-kubernetes --version ${{ steps.helm_package.outputs.package-version}} > crtsh-values.yaml
 
-            # update the values.yaml on your own accord
+            # update the crtsh-values.yaml on your own accord
 
             helm upgrade --install crtsh \
               -n crtsh --create-namespace \
-              -f values.yaml \
+              -f crtsh-values.yaml \
               --version ${{ steps.helm_package.outputs.package-version}} \
               crtsh-kubernetes/crtsh-kubernetes
+            ```
+
+            **ArgoCD Application (latest version)**
+            
+            You can use the `argocd-application.yaml` manifest in the Github repo: <https://github.com/oguzhan-yilmaz/crtsh-kubernetes/blob/main/argocd-application.yaml>
+
+            ```bash
+            kubectl apply -f https://raw.githubusercontent.com/oguzhan-yilmaz/crtsh-kubernetes/refs/heads/main/argocd-application.yaml
             ```
 
             **ArgoCD Application (current version)**
