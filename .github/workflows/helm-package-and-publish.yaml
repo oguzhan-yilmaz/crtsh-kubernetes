@@ -91,6 +91,7 @@ jobs:
             ````
 
             **Update the crtsh-values.yaml**
+
             Prometheus has a configuration named `serviceMonitorSelector` and it's used to dynamically select `ServiceMonitor` objects to scrape.
 
             It's usually the Helm Release name: `release: <your-prom-release-name>`
@@ -101,13 +102,13 @@ jobs:
             kubectl get prometheus -A -o go-template='{{range $k, $v := (index .items 0).spec.serviceMonitorSelector.matchLabels}}{{$k}}: {{$v}}{{end}}'
             ```
 
-
             Update the `.serviceMonitorLabels` in `values.yaml` accordingly.
 
             ```yaml
             serviceMonitorLabels:
               release: kube-prometheus-stack
             ```
+            
             **Set domains for Certificate Expiry**
 
             crtsh exporter will scrape the crt.sh for the domains set in the `hosts` variable.
