@@ -1,6 +1,6 @@
 # crtsh-kubernetes
 
-[![Artifact Hub](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/crtsh-kubernetes)](https://artifacthub.io/packages/search?repo=crtsh-kubernetes)
+[![Artifact Hub](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/crtsh-kubernetes)](https://artifacthub.io/packages/helm/crtsh-kubernetes/crtsh-kubernetes)
 
 > [crt.sh](https://crt.sh/) allows users to search and monitor SSL/TLS certificates issued for domains **publicly**.
 
