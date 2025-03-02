@@ -22,9 +22,6 @@ spec:
       # -----------------------------------------------
       valuesObject:
 
-        serviceMonitorLabels:
-          release: kube-prometheus-stack
-
         hosts:
           - hepapi.com
 

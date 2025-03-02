@@ -31,16 +31,6 @@ Create chart name and version as used by the chart label.
 {{- end }}
 
 
-
-{{/*
-crtsh-kubernetes-service-monitor labels
-*/}}
-{{- define "crtsh-kubernetes-service-monitor.labels" -}}
-{{- if ((.Values).serviceMonitorLabels) }}
-{{- toYaml .Values.serviceMonitorLabels }}
-{{- end }}
-{{- end }}
-
 {{/*
 Common labels
 */}}

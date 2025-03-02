@@ -24,26 +24,7 @@ First, save the default values to a file.
 helm show values crtsh-kubernetes/crtsh-kubernetes > crtsh-values.yaml
 ```
 
-### 2.1 Get the ServiceMonitor label
-
-Prometheus has a configuration named `serviceMonitorSelector` and it's used to dynamically select `ServiceMonitor` objects to scrape.
-
-It's usually the Helm Release name: `release: <your-prom-release-name>`
-
-Each installation may differ, so use the below command to find out the correct label(s).
-
-```bash
-kubectl get prometheus -A -o go-template='{{range $k, $v := (index .items 0).spec.serviceMonitorSelector.matchLabels}}{{$k}}: {{$v}}{{end}}'
-```
-
-Update the `.serviceMonitorLabels` in `values.yaml` accordingly.
-
-```yaml
-serviceMonitorLabels:
-  release: kube-prometheus-stack
-```
-
-### 2.2 Set domains for Certificate Expiry
+### 2.1 Set domains for Certificate Expiry
 
 crtsh exporter will scrape the crt.sh for the domains set in the `hosts` variable.
 
@@ -53,7 +34,7 @@ hosts:
   - your-cool-domain.io
 ```
 
-### 2.3 Set Alert severity and timing
+### 2.2 Set Alert severity and timing
 
 ```yaml
 prometheusRules:
