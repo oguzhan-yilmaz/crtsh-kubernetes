@@ -3,6 +3,17 @@ entries:
   crtsh-kubernetes:
   - apiVersion: v2
     appVersion: 1.16.0
+    created: "2025-05-19T20:31:42.037896231Z"
+    description: A Helm chart for monitoring SSL certificate expiry dates of domains
+      using crt.sh data in Kubernetes with Prometheus alerts
+    digest: 70c1a61006c237f20085cf02c929542241a9329015e239ad770124e1c586fc6f
+    name: crtsh-kubernetes
+    type: application
+    urls:
+    - https://github.com/oguzhan-yilmaz/crtsh-kubernetes/releases/download/v0.6.3/crtsh-kubernetes-0.6.3.tgz
+    version: 0.6.3
+  - apiVersion: v2
+    appVersion: 1.16.0
     created: "2025-03-28T18:43:58.793721041Z"
     description: A Helm chart for Kubernetes
     digest: d47716b7f7f807f9750d5064e924def38e060fce9ab3419269323b0fb87f7d58
@@ -171,4 +182,4 @@ entries:
     urls:
     - https://github.com/oguzhan-yilmaz/crtsh-kubernetes/releases/download/v0.1.4/crtsh-kubernetes-0.1.4.tgz
     version: 0.1.4
-generated: "2025-03-28T18:43:58.793195163Z"
+generated: "2025-05-19T20:31:42.036445379Z"
