@@ -1,0 +1,37 @@
+Thank you for installing {{ .Chart.Name }}.
+
+Chart Version: {{ .Chart.Version }}
+App Version: {{ .Chart.AppVersion }}
+
+This Helm chart deploys a crt.sh exporter to monitor SSL certificate expiry dates in Kubernetes with Prometheus alerts.
+
+Components installed:
+1. Deployment with crt.sh exporter container
+   - Image: {{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}
+   - Replicas: {{ .Values.replicaCount }}
+
+2. Service
+   - Type: {{ .Values.service.type }}
+   - Port: {{ .Values.service.port }}
+
+3. ServiceMonitor (for Prometheus monitoring)
+   - Scrape interval: {{ .Values.prometheus.scrapeInterval | default "300s" }}
+   - Scrape timeout: {{ .Values.prometheus.scrapeTimeout | default "90s" }}
+
+4. PrometheusRules (if enabled)
+   - Info alert: {{ .Values.prometheusRules.expiringInfo.days }} days before expiry
+   - Warning alert: {{ .Values.prometheusRules.expiringWarning.days }} days before expiry
+   - Critical alert: {{ .Values.prometheusRules.expiringCritical.days }} days before expiry
+
+Monitored Hosts:
+{{- range .Values.hosts }}
+- {{ . }}
+{{- end }}
+
+To verify the deployment:
+  kubectl get pods -l "app.kubernetes.io/name={{ include "crtsh-kubernetes.name" . }}"
+
+To check the service:
+  kubectl get svc {{ include "crtsh-kubernetes.fullname" . }}
+
+For more information and configuration options, please refer to the chart's documentation.
